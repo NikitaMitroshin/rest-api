@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class UserRestController {
@@ -21,6 +23,27 @@ public class UserRestController {
         List<UserModel> users = service.getAllUsers();
         return users;
     }
+
+    @RequestMapping(value = "/ajax/show/users", method = RequestMethod.GET)
+    public List<UserModel> showUsersForAjava(HttpServletRequest request) {
+        String[] shownIds = request.getParameter("shownIds").split(",");
+        List<UserModel> users = service.getAllUsers();
+        if (shownIds.length > 0) {
+            users = users
+                    .stream()
+                    .filter(userModel -> {
+                        for (int i = 0; i < shownIds.length; i++) {
+                            if (shownIds[i].equals(userModel.getId().toString())) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    })
+                    .collect(Collectors.toList());
+        }
+        return users;
+    }
+
 
 //    /* отображение пользователей по ID */
 //    @RequestMapping(value = "/show/user/{id}", method = RequestMethod.GET)

@@ -7,6 +7,8 @@
     <title>Hi</title>
     <link rel="stylesheet" type="text/css"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/users-ajax.js"></script>
 </head>
 <body>
 <h6>Now is ${time}</h6>
@@ -14,7 +16,7 @@
 
 <c:set var="allUsersList" value="${allUsers}"/>
 <c:choose>
-    <c:when test="${allUsersList.size > 0}">
+    <c:when test="${allUsersList.size() > 0}">
         <table style="width:80%">
             <tr>
                 <th>id</th>
@@ -43,6 +45,25 @@
     </c:otherwise>
 </c:choose>
 
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<button id="download-users" class="download-users">Загрузить пользователей</button>
+
+<table id="ajax-table" hidden="hidden" class="table table-sm table-dark">
+    <tr>
+        <th>id</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Status</th>
+        <th>email</th>
+        <th>user name</th>
+    </tr>
+</table>
 
 </body>
 </html>

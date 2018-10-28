@@ -22,8 +22,7 @@ public class WelcomeController {
     public String welcome(ModelMap modelMap) {
         modelMap.addAttribute("time", new Date());
         modelMap.addAttribute("message", "hello world");
-//        List<UserModel> allUsers = service.getAllUsers();
-        List<UserModel> allUsers = new ArrayList<>();
+        List<UserModel> allUsers = service.getAllUsers();
         modelMap.addAttribute("allUsers", allUsers);
         return "welcome";
     }
